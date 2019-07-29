@@ -3,68 +3,33 @@ package pointer.nested;
 public class Main {
 
     public static void main(String[] args) {
-        Collection collection = new Collection(1,1,3,5,8,12,21,34,55,89);
+        Collection collection = new Collection(	0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987,
+                1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, 514229, 832040,
+                1346269, 2178309, 3524578, 5702887, 9227465, 14930352, 24157817, 39088169, 63245986, 102334155);
 
-        display("Initial array:", collection, collection);
-        display("Direct display with zero odds:", collection, collection.new DirectDisplayWithZeroOdds());
-        display("Reverse display (values through one):", collection, collection.new ReverseDisplay());
+        display("Initial array:", collection.getDirectIterator());
 
-        Iterator iterator = new Iterator() {
-            private int index = collection.size() - 1;
+        display("Direct display with zero odds:", collection.getDirectWithZeroOddsIterator());
 
-            @Override
-            public boolean hasNext() {
-                return index >= 0;
-            }
+        display("Reverse display (values through one):", collection.getReverseByPairIndexIterator());
 
-            @Override
-            public Object next() {
-                Object o = collection.getObject(index);
-                index -= 3;
+        display("Reverse display odd values through two:", collection.getReverseThroughTwoElementsIterator());
 
-                if (o instanceof Number && ((Integer) o) % 2 == 1) {
-                    return o;
-                }
-                return null;
-            }
-        };
-
-        display("Reverse display odd values through two:", collection, iterator);
-
-        class Local implements Iterator {
-            private int index;
-
-            @Override
-            public boolean hasNext() {
-                return index < collection.size();
-            }
-
-            @Override
-            public Object next() {
-                if (!(collection.getObject(index) instanceof Number)){
-                    index +=5;
-                    return null;
-                }
-
-                int value = (int) collection.getObject(index);
-                index +=5;
-
-                if (value % 2 == 0){
-                    return (value - 100);
-                }
-
-                return null;
-            }
-        }
-
-        display("Direct display pair values through five:", collection, new Local());
+        display("Direct display pair values through five:", collection.getDirectThroughFourElements());
 
         display("Direct display all odd values on pair indexes. If a value is a pair one - change to odd.",
-                collection, new Collection.ReverseOddPair(collection));
+                collection.getReverseOrderPairInterator());
     }
 
-    private static void display(String message, Collection collection, Iterator iterator) {
+    private static void display(String message, Iterator iterator) {
         System.out.println(message);
-        collection.showArray(iterator);
+
+        while (iterator.hasNext()) {
+            Object object = iterator.next();
+            if (object != null) {
+                System.out.println("The next element is: " + object);
+            }
+        }
+        System.out.println("-----------------------");
     }
 }

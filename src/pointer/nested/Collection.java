@@ -1,46 +1,93 @@
 package pointer.nested;
 
-public class Collection implements Iterator {
-    private Object[] array;
-    private int index;
+public class Collection {
+    private final Object[] array;
 
     public Collection(Object... array) {
         this.array = array;
     }
 
-    public Object getObject(int index) {
-        return array[index];
+    public Iterator getDirectIterator(){
+      return new Iterator() {
+          int index;
+
+          @Override
+          public boolean hasNext() {
+              return index < array.length;
+          }
+
+          @Override
+          public Object next() {
+              return array[index++];
+          }
+      };
     }
 
-    public int size() {
-        return array.length;
+    public Iterator getDirectWithZeroOddsIterator() {
+        return new DirectIteratorWithZeroOdds();
     }
 
-    public void showArray(Iterator iterator) {
+    public Iterator getReverseByPairIndexIterator() {
+        return new ReverseIteratorByPairIndex();
+    }
 
-        while (iterator.hasNext()) {
-            Object object = iterator.next();
-            if (object != null) {
-                System.out.println("The next element is: " + object);
+    public Iterator getReverseThroughTwoElementsIterator() {
+        return new Iterator() {
+            private int index = array.length - 1;
+
+            @Override
+            public boolean hasNext() {
+                return index >= 0;
+            }
+
+            @Override
+            public Object next() {
+                Object o = array[index];
+                index -= 3;
+
+                if (o instanceof Number && ((Integer) o) % 2 == 1) {
+                    return o;
+                }
+                return null;
+            }
+        };
+    }
+
+    public Iterator getDirectThroughFourElements() {
+        class Local implements Iterator {
+            private int index;
+
+            @Override
+            public boolean hasNext() {
+                return index < array.length;
+            }
+
+            @Override
+            public Object next() {
+                if (!(array[index] instanceof Number)) {
+                    index += 5;
+                    return null;
+                }
+
+                int value = (int) array[index];
+                index += 5;
+
+                if (value % 2 == 0) {
+                    return (value - 100);
+                }
+
+                return null;
             }
         }
+
+        return new Local();
     }
 
-    public void showArray() {
-        showArray(this);
+    public Iterator getReverseOrderPairInterator(){
+        return new ReverseOddPair(this);
     }
 
-    @Override
-    public boolean hasNext() {
-        return index < array.length;
-    }
-
-    @Override
-    public Object next() {
-        return array[index++];
-    }
-
-    class DirectDisplayWithZeroOdds implements Iterator {
+    private class DirectIteratorWithZeroOdds implements Iterator {
         private int index;
 
         @Override
@@ -59,7 +106,7 @@ public class Collection implements Iterator {
         }
     }
 
-    class ReverseDisplay implements Iterator {
+    private class ReverseIteratorByPairIndex implements Iterator {
         private int index = array.length - 1;
 
         @Override
@@ -77,31 +124,31 @@ public class Collection implements Iterator {
 
     static class ReverseOddPair implements Iterator {
 
-        private Collection collection;
+        private final Collection collection;
+        private int currentIndex = 0;
 
         public ReverseOddPair(Collection collection) {
             this.collection = collection;
-            this.collection.index = 0;
         }
 
         @Override
         public boolean hasNext() {
-            return collection.hasNext();
+            return currentIndex < collection.array.length;
         }
 
         @Override
         public Object next() {
-            if (!(collection.getObject(collection.index) instanceof Number)){
+            if (!(collection.array[currentIndex] instanceof Number)){
                 return null;
             }
 
-            int value = (int) collection.array[collection.index];
+            int value = (int) collection.array[currentIndex];
 
             if (value % 2 == 0){
                 value++;
             }
 
-            collection.index += 2;
+            currentIndex += 2;
             return  value;
         }
     }
