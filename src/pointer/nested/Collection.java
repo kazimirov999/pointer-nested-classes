@@ -45,15 +45,12 @@ public class Collection {
                 Object o = array[index];
                 index -= 3;
 
-                if (o instanceof Number && ((Integer) o) % 2 == 1) {
-                    return o;
-                }
-                return null;
+                return (((int) o) % 2 == 1) ? o : null;
             }
         };
     }
 
-    public Iterator getDirectThroughFourElements() {
+    public Iterator getDirectThroughFourElementsIterator() {
         class Local implements Iterator {
             private int index;
 
@@ -64,26 +61,16 @@ public class Collection {
 
             @Override
             public Object next() {
-                if (!(array[index] instanceof Number)) {
-                    index += 5;
-                    return null;
-                }
-
                 int value = (int) array[index];
                 index += 5;
-
-                if (value % 2 == 0) {
-                    return (value - 100);
-                }
-
-                return null;
+                return value % 2 == 0 ? value - 100 : null;
             }
         }
 
         return new Local();
     }
 
-    public Iterator getReverseOrderPairInterator(){
+    public Iterator getReverseOrderPairIterator(){
         return new ReverseOddPair(this);
     }
 
@@ -97,12 +84,8 @@ public class Collection {
 
         @Override
         public Object next() {
-            if (index % 2 == 0){
-                return array[index++];
-            }
+            return index++ % 2 == 0 ?  array[index -1] : 0;
 
-            index++;
-            return  0;
         }
     }
 
@@ -122,7 +105,7 @@ public class Collection {
         }
     }
 
-    static class ReverseOddPair implements Iterator {
+    class ReverseOddPair implements Iterator {
 
         private final Collection collection;
         private int currentIndex = 0;
@@ -138,18 +121,9 @@ public class Collection {
 
         @Override
         public Object next() {
-            if (!(collection.array[currentIndex] instanceof Number)){
-                return null;
-            }
-
-            int value = (int) collection.array[currentIndex];
-
-            if (value % 2 == 0){
-                value++;
-            }
-
+            Integer value = (int) collection.array[currentIndex];
             currentIndex += 2;
-            return  value;
+            return (value % 2 == 0 ?  ++value : value);
         }
     }
 }

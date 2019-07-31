@@ -15,10 +15,10 @@ public class Main {
 
         display("Reverse display odd values through two:", collection.getReverseThroughTwoElementsIterator());
 
-        display("Direct display pair values through five:", collection.getDirectThroughFourElements());
+        display("Direct display pair values through five:", collection.getDirectThroughFourElementsIterator());
 
         display("Direct display all odd values on pair indexes. If a value is a pair one - change to odd.",
-                collection.getReverseOrderPairInterator());
+                collection.getReverseOrderPairIterator());
     }
 
     private static void display(String message, Iterator iterator) {
