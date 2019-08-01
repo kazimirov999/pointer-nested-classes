@@ -8,19 +8,19 @@ public class Collection {
     }
 
     public Iterator getDirectIterator(){
-      return new Iterator() {
-          int index;
+        return new Iterator() {
+            int index;
 
-          @Override
-          public boolean hasNext() {
-              return index < array.length;
-          }
+            @Override
+            public boolean hasNext() {
+                return index < array.length;
+            }
 
-          @Override
-          public Object next() {
-              return array[index++];
-          }
-      };
+            @Override
+            public Object next() {
+                return array[index++];
+            }
+        };
     }
 
     public Iterator getDirectWithZeroOddsIterator() {
@@ -84,7 +84,7 @@ public class Collection {
 
         @Override
         public Object next() {
-            return index++ % 2 == 0 ?  array[index -1] : 0;
+            return index++ % 2 == 0 ? array[index - 1] : 0;
 
         }
     }
@@ -123,7 +123,7 @@ public class Collection {
         public Object next() {
             Integer value = (int) collection.array[currentIndex];
             currentIndex += 2;
-            return (value % 2 == 0 ?  ++value : value);
+            return value % 2 == 0 ? ++value : value;
         }
     }
 }
