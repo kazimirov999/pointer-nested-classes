@@ -29,8 +29,8 @@ public class Collection {
             @Override
             public Object next() {
                 int index = currentIndex;
-                currentIndex -= 2;
-                return (int) objects[index] % 2 == 0 ? objects[index] : null;
+                currentIndex -= 3;
+                return (int) objects[index] % 2 != 0 ? objects[index] : null;
             }
         };
     }
@@ -45,7 +45,7 @@ public class Collection {
 
         @Override
         public Object next() {
-            if (currentIndex % 2 != 0) {
+            if ((int) objects[currentIndex] % 2 != 0) {
                 currentIndex++;
                 return 0;
             } else {
@@ -72,8 +72,8 @@ public class Collection {
 
     public static class DirectEverySecondEvenMakingOddIterator implements Iterator {
 
-        Object[] objects = new Object[]{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100};
-        private int currentIndex;
+        Object[] objects = new Object[]{1210, 75, 1153, 1010, 1046, 1053, 263, 396, 768, 708, 1048};
+        private int currentIndex = 1;
 
         @Override
         public boolean hasNext() {
@@ -82,10 +82,11 @@ public class Collection {
 
         @Override
         public Object next() {
-            if (currentIndex % 2 == 0) {
-                return (int) objects[currentIndex++] - 1;
+            int index = currentIndex;
+            currentIndex += 2;
+            if ((int) objects[index] % 2 == 0) {
+                return (int) objects[index] - 1;
             } else {
-                currentIndex++;
                 return null;
             }
         }
@@ -103,7 +104,7 @@ public class Collection {
             @Override
             public Object next() {
                 int index = currentIndex;
-                currentIndex += 4;
+                currentIndex += 5;
                 return (int) objects[index] % 2 == 0 ? (int) objects[index] - 100 : null;
             }
         }

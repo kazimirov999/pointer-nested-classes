@@ -1,17 +1,13 @@
 public class Main {
 
     public static void main(String[] args) {
-        Object[] objects = new Object[]{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100};
+        Object[] objects = new Object[]{1210, 75, 1153, 1010, 1046, 1053, 263, 396, 768, 708, 1048};
         Collection collection = new Collection(objects);
-        Iterator zeroInsteadOfOdd = collection.getDirectZeroInsteadOfOddIterator();
-        collection.showWithoutNull(zeroInsteadOfOdd);
-        Iterator reverseThroughOne = collection.getReverseThroughOneElementIterator();
-        collection.showWithoutNull(reverseThroughOne);
-        Iterator reverseEveryThirdOddElement = collection.getReverseEveryThirdOddIterator();
-        collection.showWithoutNull(reverseEveryThirdOddElement);
+        collection.showWithoutNull(collection.getDirectZeroInsteadOfOddIterator());
+        collection.showWithoutNull(collection.getReverseThroughOneElementIterator());
+        collection.showWithoutNull(collection.getReverseEveryThirdOddIterator());
         collection.localEveryEvenFifthSubtractOneHundred();
-        Iterator directEverySecondEvenMakingOdd = collection.getDirectEverySecondEvenMakingOddIterator();
-        collection.showWithoutNull(directEverySecondEvenMakingOdd);
+        collection.showWithoutNull(collection.getDirectEverySecondEvenMakingOddIterator());
     }
 }
 
