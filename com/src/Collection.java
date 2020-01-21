@@ -1,6 +1,4 @@
-package com.src;
-
-import java.util.Iterator;
+package src;
 
 public class Collection {
 
@@ -14,7 +12,7 @@ public class Collection {
         return new DirectTwinIterator();
     }
 
-    public class DirectTwinIterator implements Iterator {
+    private class DirectTwinIterator implements Iterator {
 
         private int index;
 
@@ -33,4 +31,3 @@ public class Collection {
         }
     }
 }
-

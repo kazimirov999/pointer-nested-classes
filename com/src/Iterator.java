@@ -1,7 +1,6 @@
-package com.src;
+package src;
 
 public interface Iterator {
-     boolean hasNext();
-
-   Integer next();
+    boolean hasNext();
+    Object next();
 }

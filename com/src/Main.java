@@ -1,12 +1,10 @@
-package com.src;
-
-import java.util.Iterator;
+package src;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Collection collection = new Collection(new Integer[]{10, 14, 18,19,44,37, 73});
+        Collection collection = new Collection(new Integer[]{10, 11, 12,13,14,15});
 
 
         Iterator iterator = collection.directIterator();
