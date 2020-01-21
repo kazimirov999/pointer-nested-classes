@@ -32,10 +32,10 @@ public class Main {
             }
         };
 
-     //   display(iterator);
-      //  display(iterator1);
-      //  display(iterator2);
-      //  display(iterator3);
+        display(iterator);
+        display(iterator1);
+        display(iterator2);
+        display(iterator3);
         display(anonimIterator);
     }
 
