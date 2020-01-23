@@ -36,12 +36,18 @@ public class Collection {
 
         @Override
         public Integer next() {
-            int a;
-            a = array[count];
-            count -= 2;
-            return a;
+            if ((array.length - 1 % 2) == 0) {
+                if ((count % 2) == 0) {
+                    return array[count--];
+                }
+            } else if ((array.length - 1 % 2) != 0) {
+                if ((count % 2) != 0) {
+                    return array[count--];
+                }
+            }
+            count--;
+            return null;
         }
-
     }
 
     class LocalIterator implements Iterator {
@@ -55,18 +61,17 @@ public class Collection {
 
         @Override
         public Integer next() {
-            int a = 0;
-            while (a == 0 && count < array.length) {
-                if ((count + 1) % 5 == 0 && array[count] % 2 == 0) {
-                    a = array[count] - 100;
+            if ((count % 5) == 0) {
+                if (array[count] % 2 == 0) {
+                    return array[count++] - 100;
                 }
-                count++;
             }
-            return a;
+            count++;
+            return null;
         }
     }
 
-    static class StatikIterator implements Iterator {
+    static class StaticIterator implements Iterator {
 
         private int count;
 
@@ -77,15 +82,13 @@ public class Collection {
 
         @Override
         public Integer next() {
-            int a = 0;
-            while (a == 0 && a < array.length) {
-                if (array[count] % 2 == 0) {
-                    a = array[count] - 1;
-                }
-                count += 2;
+            if ((count % 2) != 0 && array[count] % 2 == 0) {
+                array[count] = array[count] - 1;
+                return array[count++];
             }
-            return a;
+            count++;
+            return null;
         }
-    }
 
+    }
 }
